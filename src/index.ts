@@ -1,6 +1,6 @@
 import { Server } from 'ws';
 
-export default class StatefulSocket{
+export class StatefulSocket{
     ws : Server;
     httpServer : any;
     trustedHost? : string;

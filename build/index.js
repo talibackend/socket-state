@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.StatefulSocket = void 0;
 const ws_1 = require("ws");
 class StatefulSocket {
     constructor(httpServer, options) {
@@ -10,4 +11,4 @@ class StatefulSocket {
         });
     }
 }
-exports.default = StatefulSocket;
+exports.StatefulSocket = StatefulSocket;
