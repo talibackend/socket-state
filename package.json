@@ -4,7 +4,9 @@
   "description": "This package stores users connection in state to allow message broadcasting at any time, this makes it easier for websocket broadcasting to happen even in a http application.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index",
+    "watcher": "tsc --watch",
+    "dev" : "nodemon build/index"
   },
   "repository": {
     "type": "git",
@@ -22,5 +24,14 @@
   "bugs": {
     "url": "https://github.com/talibackend/socket-state/issues"
   },
-  "homepage": "https://github.com/talibackend/socket-state#readme"
+  "homepage": "https://github.com/talibackend/socket-state#readme",
+  "dependencies": {
+    "sequelize": "^6.21.3",
+    "sqlite": "^4.1.2",
+    "typescript": "^4.7.4",
+    "ws": "^8.8.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
 }
