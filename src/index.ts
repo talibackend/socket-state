@@ -7,11 +7,10 @@ export default class StatefulSocket{
 
     constructor(httpServer : any, options? : {trustedHost? : string}){
         let autoAcceptConnections : boolean;
-        
+
         this.ws = new Server({
-            httpServer,
+            server : httpServer,
             autoAcceptConnections : false
         })
     }
 }
-new StatefulSocket("Hello world....");

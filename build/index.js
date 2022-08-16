@@ -5,10 +5,9 @@ class StatefulSocket {
     constructor(httpServer, options) {
         let autoAcceptConnections;
         this.ws = new ws_1.Server({
-            httpServer,
+            server: httpServer,
             autoAcceptConnections: false
         });
     }
 }
 exports.default = StatefulSocket;
-new StatefulSocket("Hello world....");
