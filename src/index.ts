@@ -1,8 +1,5 @@
 import { Server } from 'ws';
-enum dbTypes{
-    mysql,
-    mongodb
-}
+import { DbTypes, MysqlConnection } from './types';
 
 export class StatefulSocket{
     ws : Server;
@@ -10,8 +7,8 @@ export class StatefulSocket{
     trustedHosts? : Array<string>;
     globalConnections : {};
 
-    constructor(httpServer : any, options : {trustedHosts? : Array<string>, dbType : dbTypes}){
-        let autoAcceptConnections : boolean;
+    constructor(httpServer : any, options : {trustedHosts? : Array<string>, dbType : DbTypes}){
+        let autoAcceptConnections : boolean = false;
 
         if(options.trustedHosts){
             this.trustedHosts = this.trustedHosts
