@@ -4,7 +4,7 @@
         "module" : "CommonJS",
         "rootDir": "./src",
         "outDir": "./build",
-        "moduleResolution": "node",
+        "moduleResolution": "node"
     },
     "exclude" : [
         "./node_modules"

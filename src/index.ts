@@ -1,6 +1,17 @@
+import { Server } from 'ws';
+
 export default class StatefulSocket{
-    constructor(){
-        console.log("Hello world....Europe");
+    ws : Server;
+    httpServer : any;
+    trustedHost? : string;
+
+    constructor(httpServer : any, options? : {trustedHost? : string}){
+        let autoAcceptConnections : boolean;
+        
+        this.ws = new Server({
+            httpServer,
+            autoAcceptConnections : false
+        })
     }
 }
-new StatefulSocket();
+new StatefulSocket("Hello world....");
