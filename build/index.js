@@ -9,6 +9,7 @@ class StatefulSocket {
             server: httpServer,
             autoAcceptConnections: false
         });
+        console.log(this.ws);
     }
 }
 exports.StatefulSocket = StatefulSocket;

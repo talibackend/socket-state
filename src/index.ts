@@ -12,5 +12,7 @@ export class StatefulSocket{
             server : httpServer,
             autoAcceptConnections : false
         })
+
+        console.log(this.ws);
     }
 }
