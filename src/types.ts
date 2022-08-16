@@ -2,12 +2,13 @@ export enum DbTypes{
     mysql,
     mongodb
 }
-export interface MysqlConnection{
+export interface DbConnection{
     host : string,
-    port : string,
+    port? : number,
     username : string,
     password : string,
     database : string,
-    users_table? : string,
-    connection_store_table? : string
-}
+    usersTable? : string,
+    connectionStoreTable? : string,
+    userUniqueIdField? : string
+};

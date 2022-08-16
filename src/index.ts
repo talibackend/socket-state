@@ -1,13 +1,13 @@
 import { Server } from 'ws';
-import { DbTypes, MysqlConnection } from './types';
+import { DbTypes, DbConnection } from './types';
 
 export class StatefulSocket{
-    ws : Server;
-    httpServer : any;
-    trustedHosts? : Array<string>;
-    globalConnections : {};
+    private ws : Server;
+    public httpServer : any;
+    protected trustedHosts? : Array<string>;
+    protected globalConnections : {};
 
-    constructor(httpServer : any, options : {trustedHosts? : Array<string>, dbType : DbTypes}){
+    constructor(httpServer : any, options : {dbType : DbTypes, connectionParams : DbConnection, trustedHosts? : Array<string>}){
         let autoAcceptConnections : boolean = false;
 
         if(options.trustedHosts){

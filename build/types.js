@@ -6,3 +6,4 @@ var DbTypes;
     DbTypes[DbTypes["mysql"] = 0] = "mysql";
     DbTypes[DbTypes["mongodb"] = 1] = "mongodb";
 })(DbTypes = exports.DbTypes || (exports.DbTypes = {}));
+;
