@@ -31,6 +31,7 @@ export class StatefulSocket{
     public async initDbConnection(){
         if(SqlTypes.includes(`${this.connectionParams.type}`)){
             this.dbInstance = SqlConnection(this.connectionParams);
+            await this.dbInstance.sync();
         }
     } 
 }

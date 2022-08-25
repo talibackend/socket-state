@@ -31,6 +31,7 @@ class StatefulSocket {
         return __awaiter(this, void 0, void 0, function* () {
             if (types_1.SqlTypes.includes(`${this.connectionParams.type}`)) {
                 this.dbInstance = (0, connection_1.default)(this.connectionParams);
+                yield this.dbInstance.sync();
             }
         });
     }
