@@ -11,7 +11,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.StatefulSocket = void 0;
 const types_1 = require("./types");
-const connection_1 = require("./database/mysql/connection");
+const connection_1 = require("./database/sql/connection");
+const User_1 = require("./database/sql/models/User");
 class StatefulSocket {
     constructor(httpServer, options) {
         let autoAcceptConnections = false;
@@ -19,7 +20,11 @@ class StatefulSocket {
             this.trustedHosts = this.trustedHosts;
             autoAcceptConnections = false;
         }
+        options.connectionParams.userUniqueIdField = options.connectionParams.userUniqueIdField ? options.connectionParams.userUniqueIdField : "id";
+        options.connectionParams.usersTable = options.connectionParams.usersTable ? options.connectionParams.userUniqueIdField : "users";
+        options.connectionParams.connectionStoreTable = options.connectionParams.connectionStoreTable ? options.connectionParams.connectionStoreTable : "ws_connections";
         this.connectionParams = options.connectionParams;
+        this.httpServer = httpServer;
         this.initDbConnection();
         // this.ws = new Server({
         //     server : httpServer,
@@ -31,7 +36,13 @@ class StatefulSocket {
         return __awaiter(this, void 0, void 0, function* () {
             if (types_1.SqlTypes.includes(`${this.connectionParams.type}`)) {
                 this.dbInstance = (0, connection_1.default)(this.connectionParams);
-                yield this.dbInstance.sync();
+                try {
+                    yield this.dbInstance.sync();
+                    (0, User_1.default)(this.dbInstance, this.connectionParams.usersTable, this.connectionParams.userUniqueIdField);
+                }
+                catch (error) {
+                    console.log(`Failed to connect to database : ${error}`);
+                }
             }
         });
     }

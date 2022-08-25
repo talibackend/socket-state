@@ -1,6 +1,7 @@
 import { Server } from 'ws';
 import { DbConnection, DbTypes, SqlTypes } from './types';
-import SqlConnection from './database/mysql/connection';
+import SqlConnection from './database/sql/connection';
+import UserModelInitiator from './database/sql/models/User';
 
 export class StatefulSocket{
     private ws : Server;
@@ -19,8 +20,15 @@ export class StatefulSocket{
             autoAcceptConnections = false;
         }
 
+        options.connectionParams.userUniqueIdField = options.connectionParams.userUniqueIdField ? options.connectionParams.userUniqueIdField : "id"; 
+        options.connectionParams.usersTable = options.connectionParams.usersTable ? options.connectionParams.userUniqueIdField : "users"; 
+        options.connectionParams.connectionStoreTable = options.connectionParams.connectionStoreTable ? options.connectionParams.connectionStoreTable : "ws_connections"; 
+
+
         this.connectionParams = options.connectionParams;
+        this.httpServer = httpServer;
         this.initDbConnection();
+
         // this.ws = new Server({
         //     server : httpServer,
         //     autoAcceptConnections
@@ -31,7 +39,12 @@ export class StatefulSocket{
     public async initDbConnection(){
         if(SqlTypes.includes(`${this.connectionParams.type}`)){
             this.dbInstance = SqlConnection(this.connectionParams);
-            await this.dbInstance.sync();
+            try{
+                await this.dbInstance.sync();
+                UserModelInitiator(this.dbInstance, this.connectionParams.usersTable, this.connectionParams.userUniqueIdField)
+            }catch(error){
+                console.log(`Failed to connect to database : ${error}`);
+            }
         }
     } 
 }
