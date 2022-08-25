@@ -14,5 +14,5 @@ const SocketInstance = new StatefulSocket(server, {connectionParams : {
     database : "socket_state",
     usersTable : "users",
     connectionStoreTable : "ws_connections",
-    userUniqueIdField : "id"
+    userUniqueIdField : "new_uid"
 }});

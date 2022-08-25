@@ -1,19 +1,18 @@
 import { Model, DataTypes, Sequelize, DataType } from 'sequelize';
 
 const UserModelInitiator = (sequelize : Sequelize, usersTable : string, userUniqueIdField : string)=>{
-
-    class User extends Model{};
     let columns = {}
 
     columns[`${userUniqueIdField}`] = {
-        type : DataTypes.INTEGER,
-        primaryKey : true,
-        autoIncrement : true,
-        allowNull : false
+        type : userUniqueIdField != "id" ? DataTypes.UUID : DataTypes.INTEGER,
+        autoIncrement : userUniqueIdField != "id" ? false : true,
+        allowNull : false,
+        primaryKey : userUniqueIdField != "id" ? false : true 
     };
-
-    User.init({column : columns as DataType}, {sequelize, tableName : usersTable});
-
+    sequelize.define("User", {
+        ...columns
+    }, {tableName : usersTable});
+    return sequelize;
 }
 
 export default UserModelInitiator;

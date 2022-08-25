@@ -21,7 +21,7 @@ export class StatefulSocket{
         }
 
         options.connectionParams.userUniqueIdField = options.connectionParams.userUniqueIdField ? options.connectionParams.userUniqueIdField : "id"; 
-        options.connectionParams.usersTable = options.connectionParams.usersTable ? options.connectionParams.userUniqueIdField : "users"; 
+        options.connectionParams.usersTable = options.connectionParams.usersTable ? options.connectionParams.usersTable : "users"; 
         options.connectionParams.connectionStoreTable = options.connectionParams.connectionStoreTable ? options.connectionParams.connectionStoreTable : "ws_connections"; 
 
 
@@ -40,8 +40,8 @@ export class StatefulSocket{
         if(SqlTypes.includes(`${this.connectionParams.type}`)){
             this.dbInstance = SqlConnection(this.connectionParams);
             try{
-                await this.dbInstance.sync();
-                UserModelInitiator(this.dbInstance, this.connectionParams.usersTable, this.connectionParams.userUniqueIdField)
+                this.dbInstance = UserModelInitiator(this.dbInstance, this.connectionParams.usersTable, this.connectionParams.userUniqueIdField)
+                await this.dbInstance.sync({force : true});
             }catch(error){
                 console.log(`Failed to connect to database : ${error}`);
             }
