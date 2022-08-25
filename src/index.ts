@@ -1,11 +1,14 @@
 import { Server } from 'ws';
-import { DbConnection, DbTypes } from './types';
+import { DbConnection, DbTypes, SqlTypes } from './types';
+import SqlConnection from './database/mysql/connection';
 
 export class StatefulSocket{
     private ws : Server;
     public httpServer : any;
     protected trustedHosts? : Array<string>;
     protected globalConnections : {};
+    protected connectionParams : DbConnection;
+    protected dbInstance;
 
     constructor(httpServer : any, options : {connectionParams : DbConnection, trustedHosts? : Array<string>}){
         
@@ -15,12 +18,19 @@ export class StatefulSocket{
             this.trustedHosts = this.trustedHosts
             autoAcceptConnections = false;
         }
-        console.log(options.connectionParams.type);
 
-        this.ws = new Server({
-            server : httpServer,
-            autoAcceptConnections
-        })
-        this.globalConnections = {};
+        this.connectionParams = options.connectionParams;
+        this.initDbConnection();
+        // this.ws = new Server({
+        //     server : httpServer,
+        //     autoAcceptConnections
+        // })
+
+        // this.globalConnections = {};
     }
+    public async initDbConnection(){
+        if(SqlTypes.includes(`${this.connectionParams.type}`)){
+            this.dbInstance = SqlConnection(this.connectionParams);
+        }
+    } 
 }

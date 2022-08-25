@@ -13,9 +13,9 @@ const InitDB = (connectionParams : DbConnection) : Sequelize | boolean=>{
     } = connectionParams;
     switch (type) {
         case DbTypes.mysql:
-            return new Sequelize(host, username, password, {dialect : "mysql", port : port ? port : 3306, database, ssl : useSSL});
+            return new Sequelize(host, username, password, {dialect : "mysql", port : port ? port : 3306, database, ssl : useSSL ? useSSL : false});
         case DbTypes.postgres:
-            return new Sequelize(host, username, password, {dialect : "mysql", port : port ? port : 5413, database, ssl : useSSL});
+            return new Sequelize(host, username, password, {dialect : "postgres", port : port ? port : 5432, database, ssl : useSSL ? useSSL : false});
         default:
             return false;
     }

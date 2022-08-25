@@ -3,6 +3,9 @@ export enum DbTypes{
     postgres,
     mongodb
 }
+export const SqlTypes = [
+    "0", "1"
+];
 export interface DbConnection{
     type : DbTypes,
     host : string,
