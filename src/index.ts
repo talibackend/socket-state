@@ -15,7 +15,7 @@ export class StatefulSocket{
             this.trustedHosts = this.trustedHosts
             autoAcceptConnections = false;
         }
-        console.log(DbTypes[`${options.connectionParams.type}`]);
+        console.log(options.connectionParams.type);
 
         this.ws = new Server({
             server : httpServer,

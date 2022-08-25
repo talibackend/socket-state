@@ -1,5 +1,6 @@
 export enum DbTypes{
     mysql,
+    postgres,
     mongodb
 }
 export interface DbConnection{
@@ -9,6 +10,7 @@ export interface DbConnection{
     username : string,
     password : string,
     database : string,
+    useSSL? : boolean, 
     usersTable? : string,
     connectionStoreTable? : string,
     userUniqueIdField? : string

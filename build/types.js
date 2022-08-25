@@ -4,6 +4,7 @@ exports.DbTypes = void 0;
 var DbTypes;
 (function (DbTypes) {
     DbTypes[DbTypes["mysql"] = 0] = "mysql";
-    DbTypes[DbTypes["mongodb"] = 1] = "mongodb";
+    DbTypes[DbTypes["postgres"] = 1] = "postgres";
+    DbTypes[DbTypes["mongodb"] = 2] = "mongodb";
 })(DbTypes = exports.DbTypes || (exports.DbTypes = {}));
 ;
