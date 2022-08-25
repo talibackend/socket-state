@@ -4,9 +4,8 @@
   "description": "This package stores users connection in state to allow message broadcasting at any time, this makes it easier for websocket broadcasting to happen even in a http application.",
   "main": "index.js",
   "scripts": {
-    "start": "node index",
     "watcher": "tsc --watch",
-    "dev": "nodemon index"
+    "dev": "nodemon build/test"
   },
   "repository": {
     "type": "git",

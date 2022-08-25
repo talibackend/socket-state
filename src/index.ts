@@ -1,5 +1,5 @@
 import { Server } from 'ws';
-import { DbTypes, DbConnection } from './types';
+import { DbConnection, DbTypes } from './types';
 
 export class StatefulSocket{
     private ws : Server;
@@ -7,14 +7,15 @@ export class StatefulSocket{
     protected trustedHosts? : Array<string>;
     protected globalConnections : {};
 
-    constructor(httpServer : any, options : {dbType : DbTypes, connectionParams : DbConnection, trustedHosts? : Array<string>}){
+    constructor(httpServer : any, options : {connectionParams : DbConnection, trustedHosts? : Array<string>}){
+        
         let autoAcceptConnections : boolean = false;
 
         if(options.trustedHosts){
             this.trustedHosts = this.trustedHosts
             autoAcceptConnections = false;
         }
-        console.log(options.dbType);
+        console.log(DbTypes[`${options.connectionParams.type}`]);
 
         this.ws = new Server({
             server : httpServer,

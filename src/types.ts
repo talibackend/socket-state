@@ -3,6 +3,7 @@ export enum DbTypes{
     mongodb
 }
 export interface DbConnection{
+    type : DbTypes,
     host : string,
     port? : number,
     username : string,
